@@ -9,8 +9,8 @@ namespace Objectiv\BoosterSeat\Utilities;
  *
  * @link objectiv.co
  * @since 1.0.0
- * @package Objectiv\Plugins\Checkout\Utilities
- * @author Brandon Tassone <brandontassone@gmail.com>
+ * @package Objectiv\BoosterSeat\Utilities
+ * @author Brandon Tassone <brandon@objectiv.co>
  */
 
 class Deactivator {
