@@ -1,5 +1,5 @@
 {
-    "name": "objectiv/booster-seat",
+    "name": "objectivco/booster-seat",
     "description": "Classes for the faster creation of wordpress plugins",
     "keywords": ["template", "composer", "package"],
     "license": "GPL-3.0-only",
