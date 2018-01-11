@@ -1,0 +1,24 @@
+{
+    "name": "objectiv/booster-seat",
+    "description": "Classes for the faster creation of wordpress plugins",
+    "keywords": ["template", "composer", "package"],
+    "license": "GPL-3.0-only",
+    "authors": [
+        {
+            "name": "Brandon Tassone",
+            "email": "brandon@objectiv.co"
+        }
+    ],
+    "type": "library",
+    "require": {
+		"php": ">=5.4"
+    },
+	"require-dev": {
+		"phpunit/phpunit": "5.2.*"
+    },
+	"autoload": {
+        "psr-4": {
+            "Objectiv\\BoosterSeat\\": "src/"
+        }
+    }
+}
