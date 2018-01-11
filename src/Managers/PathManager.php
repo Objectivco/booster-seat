@@ -8,9 +8,9 @@ namespace Objectiv\BoosterSeat\Managers;
  * This class is mainly used in the template manager and other classes related to plugin setup and file management
  *
  * @link objectiv.co
- * @since 0.0.1
- * @package Objectiv\Plugins\BulkCodes\Managers
- * @author Brandon Tassone <brandontassone@gmail.com>
+ * @since 1.0.0
+ * @package Objectiv\BoosterSeat\Managers
+ * @author Brandon Tassone <brandon@objectiv.co>
  */
 
 class PathManager {

@@ -7,8 +7,8 @@ namespace Objectiv\BoosterSeat\Base;
  *
  * @link objectiv.co
  * @since 1.0.0
- * @package Objectiv\Plugins\Checkout\Core\Base
- * @author Brandon Tassone <brandontassone@gmail.com>
+ * @package Objectiv\BoosterSeat\Base
+ * @author Brandon Tassone <brandon@objectiv.co>
  */
 abstract class Tracked {
 
