@@ -18,33 +18,49 @@ use Objectiv\BoosterSeat\Managers\PathManager;
 class Activator {
 
 	/**
+	 * @var array The plugin list and error handlers/handles for said plugins
+	 */
+	private $plugins_to_check_for_activation;
+
+	/**
+	 * Activator constructor.
+	 *
+	 * @param $plugins_to_check
+	 */
+	public function __construct($plugins_to_check) {
+		$this->set_plugins_to_check_for_activation($plugins_to_check);
+	}
+
+	/**
 	 * Method to be run on plugin activation.
 	 *
 	 * Place the plugin dependncy checks in relevantly named functions
 	 *
 	 * @since 1.0.0
 	 * @access public
-	 * @param $plugins
 	 * @return boolean
 	 */
-	public static function activate($plugins) {
+	public function activate() {
+
+		$plugins = $this->get_plugins_to_check_for_activation();
+		$errors = 0;
 
 		foreach($plugins as $plugin_file_location => $plugin_error_info) {
-			$plugin_activation_errors = array();
-
+			// The notice name to look up in the options table
 			$notice_name = $plugin_error_info[0];
+
+			// The error information if the plugin is indeed not activated
 			$error_info = $plugin_error_info[1];
 
+			// If the plugin isn't active assign the error info the array.
 			if( !is_plugin_active($plugin_file_location) ) {
-				$plugin_activation_errors[] = $error_info;
-			}
-
-			if( ! empty($plugin_activation_errors) ) {
-				add_option($notice_name, $plugins);
+				add_option($notice_name, [$error_info]);
+				$errors++;
 			}
 		}
 
-		return empty($plugins);
+		// Return true / false based on if 0 or more than 0 errors
+		return $errors != 0;
 	}
 
 	/**
@@ -54,30 +70,47 @@ class Activator {
 	 * @since 1.0.0
 	 * @access public
 	 * @param PathManager $path_manager
-	 * @param string $notice_name
 	 * @param string $text_domain
 	 */
-	public static function activate_admin_notice($path_manager, $notice_name, $text_domain = "") {
+	public function activate_admin_notice($path_manager, $text_domain = "") {
 
-		$activation_error = get_option($notice_name);
+		foreach($this->get_plugins_to_check_for_activation() as $plugin) {
+			$notice_name = $plugin[0];
 
-		if(!empty($activation_error)) {
+			$activation_error = get_option($notice_name);
 
-			// Get rid of "Plugin Activated" message on error.
-			unset($_GET["activate"]);
+			if(!empty($activation_error)) {
 
-			foreach($activation_error as $error) {
-				if(!$error["success"]) {
-					// Print the error notice
-					printf("<div class='%s'><p>%s</p></div>", $error["class"], __($error["message"], $text_domain));
+				// Get rid of "Plugin Activated" message on error.
+				unset($_GET["activate"]);
+
+				foreach($activation_error as $error) {
+					if(!$error["success"]) {
+						// Print the error notice
+						printf("<div class='%s'><p>%s</p></div>", $error["class"], __($error["message"], $text_domain));
+					}
 				}
+
+				// Remove the option after all error messages displayed
+				delete_option($notice_name);
+
+				// Deactivate the plugin
+				deactivate_plugins($path_manager->get_path_main_file());
 			}
-
-			// Remove the option after all error messages displayed
-			delete_option($notice_name);
-
-			// Deactivate the plugin
-			deactivate_plugins($path_manager->get_path_main_file());
 		}
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function get_plugins_to_check_for_activation() {
+		return $this->plugins_to_check_for_activation;
+	}
+
+	/**
+	 * @param mixed $plugins_to_check_for_activation
+	 */
+	public function set_plugins_to_check_for_activation( $plugins_to_check_for_activation ): void {
+		$this->plugins_to_check_for_activation = $plugins_to_check_for_activation;
 	}
 }
