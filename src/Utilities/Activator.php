@@ -46,9 +46,6 @@ class Activator {
 		$errors = 0;
 
 		foreach($plugins as $plugin_file_location => $plugin_error_info) {
-			// Errors for the plugin in question that is supposed to be activated
-			$plugin_activation_errors = array();
-
 			// The notice name to look up in the options table
 			$notice_name = $plugin_error_info[0];
 
