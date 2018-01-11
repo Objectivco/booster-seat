@@ -18,41 +18,33 @@ use Objectiv\BoosterSeat\Managers\PathManager;
 class Activator {
 
 	/**
-	 * The admin notice option flag the admin notice function uses to determine if an admin notice needs to be displayed
-	 * for a plugin activation error
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 * @var string $anotice_op_name Plugin activation flag option name
-	 */
-	public static $anotice_op_name = 'bulkcodes-woocommerce_activation';
-
-	/**
 	 * Method to be run on plugin activation.
 	 *
 	 * Place the plugin dependncy checks in relevantly named functions
 	 *
 	 * @since 1.0.0
 	 * @access public
+	 * @param $plugins
+	 * @return boolean
 	 */
-	public static function activate() {
-		// If no check fails, activate the plugin
-		$activation = array();
+	public static function activate($plugins) {
 
-		// Message is translated on the notice side
-		if( ! is_plugin_active('woocommerce/woocommerce.php') ) {
-			$activation[] = array(
-				"success"           => false,
-				"class"             => "notice error",
-				"message"           => __("Activation failed: Please activate WooCommerce in order to use Checkout for WooCommerce", OBJECTIV_BC_TEXT_DOMAIN)
-			);
+		foreach($plugins as $plugin_file_location => $plugin_error_info) {
+			$plugin_activation_errors = array();
+
+			$notice_name = $plugin_error_info[0];
+			$error_info = $plugin_error_info[1];
+
+			if( !is_plugin_active($plugin_file_location) ) {
+				$plugin_activation_errors[] = $error_info;
+			}
+
+			if( ! empty($plugin_activation_errors) ) {
+				add_option($notice_name, $plugins);
+			}
 		}
 
-		if( ! empty($activation) ) {
-			add_option(self::$anotice_op_name, $activation);
-		}
-
-		return empty($activation);
+		return empty($plugins);
 	}
 
 	/**
@@ -62,10 +54,12 @@ class Activator {
 	 * @since 1.0.0
 	 * @access public
 	 * @param PathManager $path_manager
+	 * @param string $notice_name
+	 * @param string $text_domain
 	 */
-	public static function activate_admin_notice($path_manager) {
+	public static function activate_admin_notice($path_manager, $notice_name, $text_domain = "") {
 
-		$activation_error = get_option(self::$anotice_op_name);
+		$activation_error = get_option($notice_name);
 
 		if(!empty($activation_error)) {
 
@@ -75,12 +69,12 @@ class Activator {
 			foreach($activation_error as $error) {
 				if(!$error["success"]) {
 					// Print the error notice
-					printf("<div class='%s'><p>%s</p></div>", $error["class"], __($error["message"], OBJECTIV_BC_TEXT_DOMAIN));
+					printf("<div class='%s'><p>%s</p></div>", $error["class"], __($error["message"], $text_domain));
 				}
 			}
 
 			// Remove the option after all error messages displayed
-			delete_option(self::$anotice_op_name);
+			delete_option($notice_name);
 
 			// Deactivate the plugin
 			deactivate_plugins($path_manager->get_path_main_file());
