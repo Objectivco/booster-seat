@@ -26,7 +26,7 @@ class i18n {
 	/**
 	 * @param $text_domain
 	 */
-	public function _construct($text_domain) {
+	public function __construct($text_domain) {
 		$this->set_text_domain($text_domain);
 	}
 
