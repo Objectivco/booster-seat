@@ -108,7 +108,7 @@ class PathManager {
 	 * @return string Returns the concatenated folder name with the main file name in one strong
 	 */
 	public function get_path_main_file() {
-		return $this->base . "/" . $this->main_file;
+		return $this->base . $this->main_file;
 	}
 
 	/**
