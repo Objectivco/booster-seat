@@ -7,6 +7,8 @@
 
 /**
  * Sample test case.
+ *
+ * @since 1.0.0
  */
 class DeactivatorTest extends WP_UnitTestCase {
 
