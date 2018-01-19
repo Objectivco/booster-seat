@@ -19,7 +19,7 @@ abstract class Singleton
 	 * @access private
 	 * @var null
 	 */
-	private static $instance = null;
+	protected static $instance = array();
 
 	/**
 	 * Singleton constructor. Just a stub. Do not fill with logic
@@ -54,10 +54,12 @@ abstract class Singleton
 	 */
 	final public static function instance()
 	{
-		if (self::$instance === null) {
-			self::$instance = new static;
+		$class = (string)get_called_class();
+
+		if (!array_key_exists($class, self::$instance)) {
+			self::$instance[$class] = new static;
 		}
 
-		return self::$instance;
+		return self::$instance[$class];
 	}
 }
