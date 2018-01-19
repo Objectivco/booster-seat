@@ -9,6 +9,8 @@ use Objectiv\BoosterSeat\Managers\PathManager;
 
 /**
  * Sample test case.
+ *
+ * @since 1.0.0
  */
 class PathManagerTest extends WP_UnitTestCase {
 

@@ -18,6 +18,8 @@ class Test3 extends Middle {}
 
 /**
  * Sample test case.
+ *
+ * @since 1.0.3
  */
 class SingletonTest extends WP_UnitTestCase {
 
