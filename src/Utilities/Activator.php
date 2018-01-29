@@ -110,7 +110,7 @@ class Activator {
 	/**
 	 * @param mixed $plugins_to_check_for_activation
 	 */
-	public function set_plugins_to_check_for_activation( $plugins_to_check_for_activation ): void {
+	public function set_plugins_to_check_for_activation( $plugins_to_check_for_activation ) {
 		$this->plugins_to_check_for_activation = $plugins_to_check_for_activation;
 	}
 }
