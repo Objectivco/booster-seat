@@ -4,6 +4,8 @@ TODO
 
 CHANGELOG
 =========
+* 1.0.5
+  * Removed return type that should not be there
 * 1.0.4
   * Removed bin folder
 * 1.0.3
