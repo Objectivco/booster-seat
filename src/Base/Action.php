@@ -11,6 +11,8 @@ namespace Objectiv\BoosterSeat\Base;
  * @author Brandon Tassone <brandon@objectiv.co>
  */
 abstract class Action extends Tracked {
+	public $no_privilege;
+	public $action_prefix;
 
 	/**
 	 * Action constructor.
@@ -18,8 +20,13 @@ abstract class Action extends Tracked {
 	 * @since 1.0.0
 	 * @access public
 	 * @param $id
+	 * @param bool $no_privilege
+	 * @param string $action_prefix
 	 */
-	public function __construct( $id ) {
+	public function __construct( $id, $no_privilege = true, $action_prefix = "wp_ajax_" ) {
+		$this->no_privilege = $no_privilege;
+		$this->action_prefix = $action_prefix;
+
 		parent::__construct( $id );
 	}
 
@@ -28,11 +35,11 @@ abstract class Action extends Tracked {
 	 * @access public
 	 * @param boolean $np
 	 */
-	public function load($np = true) {
-		add_action("wp_ajax_{$this->get_id()}", array($this, 'action'));
+	public function load() {
+		add_action("{$this->action_prefix}{$this->get_id()}", array($this, 'action'));
 
-		if($np) {
-			add_action( "wp_ajax_nopriv_{$this->get_id()}", array( $this, 'action' ) );
+		if( $this->no_privilege === true ) {
+			add_action( "{$this->action_prefix}nopriv_{$this->get_id()}", array( $this, 'action' ) );
 		}
 	}
 
