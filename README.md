@@ -4,6 +4,8 @@ TODO
 
 CHANGELOG
 =========
+* 1.0.6
+  * Add the ability to control critical load attributes with overloaded constructor variables.
 * 1.0.5
   * Removed return type that should not be there
 * 1.0.4
