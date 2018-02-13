@@ -11,8 +11,20 @@ namespace Objectiv\BoosterSeat\Base;
  * @author Brandon Tassone <brandon@objectiv.co>
  */
 abstract class Action extends Tracked {
-	public $no_privilege;
-	public $action_prefix;
+
+	/**
+	 * @since 1.0.6
+	 * @access private
+	 * @var bool
+	 */
+	private $no_privilege;
+
+	/**
+	 * @since 1.0.6
+	 * @access private
+	 * @var string
+	 */
+	private $action_prefix;
 
 	/**
 	 * Action constructor.
@@ -24,22 +36,21 @@ abstract class Action extends Tracked {
 	 * @param string $action_prefix
 	 */
 	public function __construct( $id, $no_privilege = true, $action_prefix = "wp_ajax_" ) {
-		$this->no_privilege = $no_privilege;
-		$this->action_prefix = $action_prefix;
-
 		parent::__construct( $id );
+
+		$this->set_no_privilege($no_privilege);
+		$this->set_action_prefix($action_prefix);
 	}
 
 	/**
 	 * @since 1.0.0
 	 * @access public
-	 * @param boolean $np
 	 */
 	public function load() {
-		add_action("{$this->action_prefix}{$this->get_id()}", array($this, 'action'));
+		add_action("{$this->get_action_prefix()}{$this->get_id()}", array($this, 'action'));
 
-		if( $this->no_privilege === true ) {
-			add_action( "{$this->action_prefix}nopriv_{$this->get_id()}", array( $this, 'action' ) );
+		if( $this->get_no_privilege() === true ) {
+			add_action( "{$this->get_action_prefix()}nopriv_{$this->get_id()}", array( $this, 'action' ) );
 		}
 	}
 
@@ -59,4 +70,40 @@ abstract class Action extends Tracked {
 	 * @return mixed
 	 */
 	abstract public function action();
+
+	/**
+	 * @since 1.0.6
+	 * @access public
+	 * @return bool
+	 */
+	public function get_no_privilege() {
+		return $this->no_privilege;
+	}
+
+	/**
+	 * @since 1.0.6
+	 * @access public
+	 * @param bool $no_privilege
+	 */
+	public function set_no_privilege($no_privilege) {
+		$this->no_privilege = $no_privilege;
+	}
+
+	/**
+	 * @since 1.0.6
+	 * @access public
+	 * @return string
+	 */
+	public function get_action_prefix() {
+		return $this->action_prefix;
+	}
+
+	/**
+	 * @since 1.0.6
+	 * @access public
+	 * @param string $action_prefix
+	 */
+	public function set_action_prefix($action_prefix) {
+		$this->action_prefix = $action_prefix;
+	}
 }
