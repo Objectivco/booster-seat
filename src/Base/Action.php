@@ -11,8 +11,19 @@ namespace Objectiv\BoosterSeat\Base;
  * @author Brandon Tassone <brandon@objectiv.co>
  */
 abstract class Action extends Tracked {
-	public $no_privilege;
-	public $action_prefix;
+	/**
+	 * @since 1.0.6
+	 * @access private
+	 * @var bool
+	 */
+	private $no_privilege;
+
+	/**
+	 * @since 1.0.6
+	 * @access private
+	 * @var string
+	 */
+	private $action_prefix;
 
 	/**
 	 * Action constructor.
