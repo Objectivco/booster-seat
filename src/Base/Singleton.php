@@ -12,8 +12,8 @@ namespace Objectiv\BoosterSeat\Base;
  * @author Brandon Tassone <brandon@objectiv.co>
  */
 
-abstract class Singleton
-{
+abstract class Singleton {
+
 	/**
 	 * @since 1.0.0
 	 * @access private
@@ -52,14 +52,13 @@ abstract class Singleton
 	 * @access public
 	 * @return null|static
 	 */
-	final public static function instance()
-	{
-		$class = (string)get_called_class();
+	final public static function instance() {
+		$class = (string) get_called_class();
 
-		if (!array_key_exists($class, self::$instance)) {
-			self::$instance[$class] = new static;
+		if ( ! array_key_exists( $class, self::$instance ) ) {
+			self::$instance[ $class ] = new static;
 		}
 
-		return self::$instance[$class];
+		return self::$instance[ $class ];
 	}
 }
