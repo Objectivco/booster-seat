@@ -4,6 +4,8 @@ TODO
 
 CHANGELOG
 =========
+* 1.0.10
+  * Moved wordpress dependency to dev
 * 1.0.9
   * Dropped dotenv version from 3.2.x to 2.5
 * 1.0.8
