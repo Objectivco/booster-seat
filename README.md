@@ -4,6 +4,8 @@ TODO
 
 CHANGELOG
 =========
+* 1.0.9
+  * Dropped dotenv version from 3.2.x to 2.5
 * 1.0.8
   * Add wordpress core library and wp-phpunit to composer and files to facilitate automatic test setup.
   * Add ability to pass parameters to singleton instance

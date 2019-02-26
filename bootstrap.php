@@ -5,12 +5,9 @@
 // Composer autoloader must be loaded before WP_PHPUNIT__DIR will be available
 require_once 'vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::create(__DIR__);
-
-try {
-	$dotenv->load();
-}catch (Exception $e) {
-	echo "[NOTICE][DotEnv] {$e->getMessage()}\n";
+$env = new Dotenv\Dotenv( __DIR__ );
+if ( file_exists( __DIR__ . '/.env' ) ) {
+	$env->load();
 }
 
 putenv('WP_PHPUNIT__TESTS_CONFIG=' . dirname(__FILE__) . '/wp-tests-config.php');
