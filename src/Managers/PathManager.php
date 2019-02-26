@@ -51,11 +51,11 @@ class PathManager {
 	 * @param string $url_base The plugin url base path
 	 * @param string $main_file The main plugin file
 	 */
-	public function __construct($base, $url_base, $main_file) {
-		$this->base = $base;
-		$this->url_base = $url_base;
-		$this->main_file = basename($main_file); // TODO: Rename main_file to main_file_basename
-		$this->raw_file = $main_file;
+	public function __construct( $base, $url_base, $main_file ) {
+		$this->base      = $base;
+		$this->url_base  = $url_base;
+		$this->main_file = basename( $main_file ); // TODO: Rename main_file to main_file_basename
+		$this->raw_file  = $main_file;
 	}
 
 	/**

@@ -26,8 +26,8 @@ class i18n {
 	/**
 	 * @param $text_domain
 	 */
-	public function __construct($text_domain) {
-		$this->set_text_domain($text_domain);
+	public function __construct( $text_domain ) {
+		$this->set_text_domain( $text_domain );
 	}
 
 	/**
@@ -37,7 +37,7 @@ class i18n {
 	 * @access public
 	 * @param PathManager $path_manager
 	 */
-	public function load_plugin_textdomain($path_manager) {
+	public function load_plugin_textdomain( $path_manager ) {
 		load_plugin_textdomain(
 			$this->get_text_domain(),
 			false,
