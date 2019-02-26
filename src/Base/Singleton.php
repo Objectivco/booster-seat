@@ -57,7 +57,7 @@ abstract class Singleton
 		$class = (string)get_called_class();
 
 		if (!array_key_exists($class, self::$instance)) {
-			self::$instance[$class] = new static;
+			self::$instance[$class] = new static(...func_get_args());
 		}
 
 		return self::$instance[$class];
