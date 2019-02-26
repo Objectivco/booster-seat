@@ -1,9 +1,4 @@
 <?php
-/**
- * Class SampleTest
- *
- * @package Woocommerce_Bulk_Codes
- */
 
 /**
  * Sample test case.

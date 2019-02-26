@@ -2,19 +2,49 @@
 
 use Objectiv\BoosterSeat\Base\Singleton;
 
+
 // Middle class so we can test more inheritance
-class Middle extends Singleton {
+class BaseClass extends Singleton {
 	public $name = "";
 }
 
 // Test class 1
-class Test1 extends Middle {}
+class Test1 extends BaseClass {}
 
 // Test class 2
-class Test2 extends Middle {}
+class Test2 extends BaseClass {}
 
 // Test class 3
-class Test3 extends Middle {}
+class Test3 extends BaseClass {}
+
+// Test class 4
+class Test4 extends BaseClass {
+	/**
+	 * @var string
+	 */
+	public $param1;
+	/**
+	 * @var string
+	 */
+	public $param2;
+	/**
+	 * @var string
+	 */
+	public $param3;
+
+	/**
+	 * Test4 constructor.
+	 *
+	 * @param $param1
+	 * @param $param2
+	 * @param $param3
+	 */
+	public function __construct($param1, $param2, $param3) {
+		$this->param1 = $param1;
+		$this->param2 = $param2;
+		$this->param3 = $param3;
+	}
+}
 
 /**
  * Sample test case.
@@ -40,6 +70,8 @@ class SingletonTest extends WP_UnitTestCase {
 
 	/**
 	 * Test setup function where we grab each classes initial instance
+	 *
+	 * @returns void
 	 */
 	function setUp() {
 		parent::setUp();
@@ -65,16 +97,34 @@ class SingletonTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * T
+	 * Test that the class extended from is the class returned
 	 */
 	function test_class_extended_can_be_the_only_class_created() {
 
-		$previous_test1 = $this->test1;
-		$test1 = Test1::instance();
+		$test1 = $this->test1;
+		$newTest1 = Test1::instance();
 
-		$this->assertEquals($previous_test1, $test1);
-		$this->assertEquals("Murphy", $test1->name);
+		$this->assertEquals($test1, $newTest1);
+		$this->assertEquals("Murphy", $newTest1->name);
 		$this->assertEquals("John", Test2::instance()->name);
 		$this->assertEquals("Brandon", Test3::instance()->name);
+	}
+
+	/**
+	 * Check that adding a constructor with parameters still allows for items to be passed in and returned correctly
+	 */
+	function test_passed_parameters_to_singleton() {
+		$test4 = Test4::instance('param1', 'param2', 'param3');
+		$test4Instance = Test4::instance('param3', 'param4', 'param5');
+
+		// Test the original instance call
+		$this->assertEquals('param1', $test4->param1);
+		$this->assertEquals('param2', $test4->param2);
+		$this->assertEquals('param3', $test4->param3);
+
+		// Test the next reference call
+		$this->assertEquals('param1', $test4Instance->param1);
+		$this->assertEquals('param2', $test4Instance->param2);
+		$this->assertEquals('param3', $test4Instance->param3);
 	}
 }

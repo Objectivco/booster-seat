@@ -1,3 +1,6 @@
 vendor/
 .DS_Store
 .idea/*
+wp-tests-config.php
+.env
+something/

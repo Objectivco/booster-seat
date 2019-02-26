@@ -4,6 +4,12 @@ TODO
 
 CHANGELOG
 =========
+* 1.0.8
+  * Add wordpress core library and wp-phpunit to composer and files to facilitate automatic test setup.
+  * Add ability to pass parameters to singleton instance
+  * Added test for the new functionality
+* 1.0.7
+  * Add remove_all_action before ajax actions are hooked.
 * 1.0.6
   * Add the ability to control critical load attributes with overloaded constructor variables.
 * 1.0.5
