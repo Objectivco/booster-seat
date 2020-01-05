@@ -48,12 +48,21 @@ abstract class Action extends Tracked {
 	 */
 	public function load() {
 		remove_all_actions( "{$this->action_prefix}{$this->get_id()}" );
-		add_action( "{$this->action_prefix}{$this->get_id()}", array( $this, 'action' ) );
+		add_action( "{$this->action_prefix}{$this->get_id()}", array( $this, 'execute' ) );
 
 		if ( $this->no_privilege === true ) {
 			remove_all_actions( "{$this->action_prefix}nopriv_{$this->get_id()}" );
-			add_action( "{$this->action_prefix}nopriv_{$this->get_id()}", array( $this, 'action' ) );
+			add_action( "{$this->action_prefix}nopriv_{$this->get_id()}", array( $this, 'execute' ) );
 		}
+	}
+
+	public function execute() {
+		// Try to prevent errors and errata from leaking into AJAX responses
+		// This output buffer is discarded on out();
+		ob_end_clean();
+		ob_start();
+
+		$this->action();
 	}
 
 	/**
@@ -62,6 +71,7 @@ abstract class Action extends Tracked {
 	 * @param $out
 	 */
 	protected function out( $out ) {
+		ob_end_clean();
 		echo json_encode( $out, JSON_FORCE_OBJECT );
 		wp_die();
 	}
