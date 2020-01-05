@@ -4,6 +4,8 @@ TODO
 
 CHANGELOG
 =========
+* 1.0.11
+  * Added output buffering to protect out() from errors and leakages.
 * 1.0.10
   * Moved wordpress dependency to dev
 * 1.0.9
