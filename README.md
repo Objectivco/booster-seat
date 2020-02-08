@@ -4,6 +4,8 @@ TODO
 
 CHANGELOG
 =========
+* 1.0.12
+  * Ironies! Add @ control operator to prevent ob_end_clean() from throwing a notice
 * 1.0.11
   * Added output buffering to protect out() from errors and leakages.
 * 1.0.10
