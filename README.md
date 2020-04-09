@@ -4,6 +4,8 @@ TODO
 
 CHANGELOG
 =========
+* 1.0.13
+  * Add OBJECTIV_BOOSTER_NO_BUFFER constant flag to allow suppressing output buffering.
 * 1.0.12
   * Ironies! Add @ control operator to prevent ob_end_clean() from throwing a notice
 * 1.0.11

@@ -57,10 +57,12 @@ abstract class Action extends Tracked {
 	}
 
 	public function execute() {
-		// Try to prevent errors and errata from leaking into AJAX responses
-		// This output buffer is discarded on out();
-		@ob_end_clean();
-		ob_start();
+		if ( ! defined('OBJECTIV_BOOSTER_NO_BUFFER') ) {
+			// Try to prevent errors and errata from leaking into AJAX responses
+			// This output buffer is discarded on out();
+			@ob_end_clean();
+			ob_start();
+		}
 
 		$this->action();
 	}
@@ -71,7 +73,10 @@ abstract class Action extends Tracked {
 	 * @param $out
 	 */
 	protected function out( $out ) {
-		@ob_end_clean();
+		if ( ! defined('OBJECTIV_BOOSTER_NO_BUFFER') ) {
+			@ob_end_clean();
+		}
+
 		echo json_encode( $out, JSON_FORCE_OBJECT );
 		wp_die();
 	}
