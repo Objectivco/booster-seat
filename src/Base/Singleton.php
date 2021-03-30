@@ -43,7 +43,7 @@ abstract class Singleton {
 	 * @since 1.0.0
 	 * @access private
 	 */
-	private function __wakeup() {}
+	public function __wakeup() {}
 
 	/**
 	 * Returns the class instantiated instance. Will return the first instance generated, and nothing else.
